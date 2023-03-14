@@ -439,3 +439,4 @@ Además, incluye documentación sobre dicho código y un vídeo descriptivo de c
 
 TABLERO TRELLO PARA ORGANIZARME: https://trello.com/invite/b/pV6DWUEK/ATTI128edb41c89e6393096c7916fc21348b235BCF85/practica-3-alp00054-organizacion
 
+TABLERO TRELLO PRACTICA: https://trello.com/invite/b/vcknNQvI/ATTIbfa29830342427011d11f6102586bec3E8A708D2/practica-3-alp00054
