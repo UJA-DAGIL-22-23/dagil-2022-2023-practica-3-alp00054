@@ -437,4 +437,5 @@ El código en ese repositorio muestra una aplicación similar, pero con mucha m�
 
 Además, incluye documentación sobre dicho código y un vídeo descriptivo de cómo se ha realizado y cómo funciona la aplicación de ejemplo.
 
-TABLERO TRELLO: https://trello.com/invite/b/pV6DWUEK/ATTI128edb41c89e6393096c7916fc21348b235BCF85/practica-3-alp00054
+TABLERO TRELLO PARA ORGANIZARME: https://trello.com/invite/b/pV6DWUEK/ATTI128edb41c89e6393096c7916fc21348b235BCF85/practica-3-alp00054-organizacion
+
