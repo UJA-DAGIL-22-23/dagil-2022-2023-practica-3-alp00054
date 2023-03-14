@@ -436,3 +436,5 @@ https://github.com/UJA-Desarrollo-Agil/descripcion-proyecto-microservicios-perso
 El código en ese repositorio muestra una aplicación similar, pero con mucha más funcionalidad que esta plantilla: acceso a base de datos remota, listado de documentos recuperados de la BBDD, peticiones entre distintos microservicios, etc.
 
 Además, incluye documentación sobre dicho código y un vídeo descriptivo de cómo se ha realizado y cómo funciona la aplicación de ejemplo.
+
+TABLERO TRELLO: https://trello.com/invite/b/pV6DWUEK/ATTI128edb41c89e6393096c7916fc21348b235BCF85/practica-3-alp00054
