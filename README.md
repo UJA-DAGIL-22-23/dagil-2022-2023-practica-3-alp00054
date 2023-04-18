@@ -442,4 +442,4 @@ TABLERO TRELLO PARA ORGANIZARME: https://trello.com/invite/b/pV6DWUEK/ATTI128edb
 
 TABLERO TRELLO PRACTICA: https://trello.com/invite/b/vcknNQvI/ATTIbfa29830342427011d11f6102586bec3E8A708D2/practica-3-alp00054
 
-TABLERO TRELLO INICIAL: (./CapturaTrelloinicio.PNG)
+TABLERO TRELLO INICIAL: <img src='/CapturaTrelloinicio.PNG' width='800px'>
