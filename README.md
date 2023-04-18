@@ -448,3 +448,7 @@ CAPTURAS FAUNA:
 <img src='/fauna1.PNG' width='800px'>
 <img src='/fauna2.PNG' width='800px'>
 <img src='/fauna3.PNG' width='800px'>
+
+ACERCADE:
+<img src='/acercade.PNG' width='800px'>
+<img src='/CapturaTrelloinicio.PNG' width='800px'>
