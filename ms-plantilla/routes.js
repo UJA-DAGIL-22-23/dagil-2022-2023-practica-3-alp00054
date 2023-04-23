@@ -68,16 +68,6 @@ router.get("/get_pilotos_completos", async (req, res) => {
     }
 });
 
-/**
- * Ruta de get_pilotos ordenados
- */
-router.get("get_pilotos_ordenados", async (req, res) => {
-    try {
-        await callbacks.get_pilotos_ordenados(req, res)
-    } catch (error) {
-        console.log(error);
-    }
-});
 
 // Exporto el módulo para poder usarlo en server
 module.exports = router;

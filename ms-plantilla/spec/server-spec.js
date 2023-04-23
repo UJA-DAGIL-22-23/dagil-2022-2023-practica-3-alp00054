@@ -81,8 +81,8 @@ describe('Servidor PLANTILLA:', () => {
           //console.log( res.body ); // Para comprobar qué contiene exactamente res.body
           assert(res.body.data[0].data.hasOwnProperty('nombre'));
           assert(res.body.data[0].data.hasOwnProperty('apellido'));
-          assert(res.body.data[0].data.name === "Ana");
-          assert(res.body.data[0].data.name != "Pato");
+          assert(res.body.data[0].data.nombre === "Ana");
+          assert(res.body.data[0].data.nombre != "Pato");
           assert(res.body.data.length === 10);
         })
         .end((error) => { error ? done.fail(error) : done(); }
@@ -107,8 +107,8 @@ describe('Servidor PLANTILLA:', () => {
           assert(res.body.data[0].data.hasOwnProperty('edad'));
           assert(res.body.data[0].data.hasOwnProperty('motos'));
           assert(res.body.data[0].data.hasOwnProperty('playasvisitadas'));
-          assert(res.body.data[0].data.name === "Ana");
-          assert(res.body.data[0].data.name != "Pato");
+          assert(res.body.data[0].data.nombre === "Ana");
+          assert(res.body.data[0].data.nombre != "Pato");
           assert(res.body.data.length === 10);
         })
         .end((error) => { error ? done.fail(error) : done(); }
@@ -118,19 +118,76 @@ describe('Servidor PLANTILLA:', () => {
   })
 
   /**
-   * Listar pilotos ordenado
+   * Tests para acceso a la BBDD
    */
-  describe('Lista de pilotos ordenada:', () => {
-    it('Devuelve un listado ordenado', (done) => {
+  describe('Acceso a BBDD:', () => {
+    it('Devuelve nombre al consultar mediante test_db', (done) => {
       supertest(app)
-        .get('/get_pilotos_ordenados')
+        .get('/test_db')
         .expect(200)
         .expect('Content-Type', /json/)
+        .expect(function (res) {
+          //console.log( res.body ); // Para comprobar qué contiene exactamente res.body
+          assert(res.body.data[0].data.hasOwnProperty('nombre'));
+          assert(res.body.data[0].data.nombre === "Ana");
+
+        })
         .end((error) => { error ? done.fail(error) : done(); }
         );
     });
+
+  })
+
+  /**
+   * Listar pilotos
+   */
+  describe('Lista de pilotos:', () => {
+    it('Devuelve un listado con todos los pilotos', (done) => {
+      supertest(app)
+        .get('/get_pilotos')
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .expect(function (res) {
+          //console.log( res.body ); // Para comprobar qué contiene exactamente res.body
+          assert(res.body.data[0].data.hasOwnProperty('nombre'));
+          assert(res.body.data[0].data.hasOwnProperty('apellido'));
+          assert(res.body.data[0].data.nombre === "Ana");
+          assert(res.body.data[0].data.nombre != "Pato");
+          assert(res.body.data.length === 10);
+        })
+        .end((error) => { error ? done.fail(error) : done(); }
+        );
+    });
+
+  })
+
+  /**
+   * Listar pilotos completo
+   */
+  describe('Lista de pilotos completa:', () => {
+    it('Devuelve un listado con todos los pilotos', (done) => {
+      supertest(app)
+        .get('/get_pilotos_completos')
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .expect(function (res) {
+          //console.log( res.body ); // Para comprobar qué contiene exactamente res.body
+          assert(res.body.data[0].data.hasOwnProperty('nombre'));
+          assert(res.body.data[0].data.hasOwnProperty('apellido'));
+          assert(res.body.data[0].data.hasOwnProperty('edad'));
+          assert(res.body.data[0].data.hasOwnProperty('motos'));
+          assert(res.body.data[0].data.hasOwnProperty('playasvisitadas'));
+          assert(res.body.data[0].data.nombre === "Ana");
+          assert(res.body.data[0].data.nombre != "Pato");
+          assert(res.body.data.length === 10);
+        })
+        .end((error) => { error ? done.fail(error) : done(); }
+        );
+    });
+
   })
 
 });
+
 
 
