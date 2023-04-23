@@ -456,3 +456,7 @@ ACERCADE:
 LISTADO DE PILOTOS:
 <img src='/ListadodePilotos.PNG' width='800px'>
 <img src='/ListadodePilotosMuestra.PNG' width='800px'>
+
+LISTADO DE PILOTOS COMPLETO:
+<img src='/ListadodePilotosCom.PNG' width='800px'>
+<img src='/ListadodePilotosComM.PNG' width='800px'>
