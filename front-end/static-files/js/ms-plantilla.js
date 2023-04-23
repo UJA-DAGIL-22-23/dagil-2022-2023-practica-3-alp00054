@@ -284,7 +284,7 @@ Plantilla.plantillaTablaPilotoscom.cuerpo = `
 Plantilla.plantillaTablaPilotoscom.pie = `</tbody>
 </table>`;
 
-             /**
+/**
  * Actualiza el formulario con los datos del piloto que se le pasa
  * @param {Plantilla} Plantilla Objeto con los datos del piloto que queremos escribir en el TR
  * @returns La plantilla del cuerpo de la tabla con los datos actualizados 
@@ -294,3 +294,62 @@ Plantilla.plantillaTablaPilotoscom.actualizapilotocom = function (piloto) {
     return Plantilla.sustituyeTagscompleto(this.cuerpo, piloto)
 }
 
+
+/**
+ * Función para mostrar en pantalla todos los datos de pilotos que se han recuperado de la BBDD.
+ * @param {Vector_de_pilotos} vector Vector con los datos de los pilotos a mostrar
+ */
+
+Plantilla.imprimenombrescompleto = function (vector) {
+    let msj = Plantilla.plantillaTablaPilotoscom.cabecera
+    if (vector && Array.isArray(vector)) {
+        vector.forEach(e => msj += Plantilla.plantillaTablaPilotoscom.actualizapilotocom(e));
+    }
+    msj += Plantilla.plantillaTablaPilotoscom.pie
+
+    Frontend.Article.actualizar("Datos de los pilotos", msj)
+}
+
+
+/**
+ * Función principal para recuperar los pilotos desde el MS y, posteriormente, imprimirlos.
+ */
+Plantilla.procesarlistadocompleto = function () {
+    Plantilla.recuperacom(Plantilla.imprimenombrescompleto);
+}
+
+/**
+ * Función que imprime todos los datos de todos los pilotos ordenados alfabéticamente
+ * @param {Vector_de_pilotos} vector 
+ */
+Plantilla.imprimeorden = function(vector) {
+    // Compongo el contenido que se va a mostrar dentro de la tabla
+    let msj = Plantilla.plantillaTablaPilotos.cabecera
+    if (vector && Array.isArray(vector)) {
+        vector.sort(function(a, b) {
+            let nombreA = a.data.nombre.toUpperCase(); 
+            let nombreB = b.data.nombre.toUpperCase(); 
+            if (nombreA > nombreB) {
+                return 1;
+            }
+            if (nombreA < nombreB) {
+                return -1;
+            }
+            return 0;
+        });
+
+        vector.forEach(e => msj += Plantilla.plantillaTablaPilotos.actualizapiloto(e));
+    }
+    msj += Plantilla.plantillaTablaPilotos.pie
+
+    // Borrar toda la información del Article y la sustituyo por la que ma interesa
+    Frontend.Article.actualizar("Nombres en orden", msj)
+}
+
+
+/**
+ * Función principal para recuperar los pilotos desde el MS y, posteriormente, ordenarlos.
+ */
+Plantilla.ordenarlistado = function () {
+    Plantilla.recupera(Plantilla.imprimeorden);
+}
