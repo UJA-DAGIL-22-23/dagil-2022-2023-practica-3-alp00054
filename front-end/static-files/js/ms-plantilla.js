@@ -186,7 +186,7 @@ Plantilla.plantillaTablaPilotos.pie = `        </tbody>
  * Función para mostrar en pantalla todos los nombres de pilotos que se han recuperado de la BBDD.
  * @param {Vector_de_pilotos} vector Vector con los datos de los pilotos a mostrar
  */
-//Preguntar
+
 Plantilla.imprimenombres = function (vector) {
     let msj = Plantilla.plantillaTablaPilotos.cabecera
     if (vector && Array.isArray(vector)) {
@@ -211,4 +211,113 @@ Plantilla.plantillaTablaPilotos.actualizapiloto = function (piloto) {
  */
 Plantilla.procesarlistado = function () {
     Plantilla.recupera(Plantilla.imprimenombres);
+}
+
+/**
+ * Función que recuperar todos los pilotos llamando al MS Plantilla
+ * @param {función} callBackFn Función a la que se llamará una vez recibidos los datos.
+ */
+
+Plantilla.recuperacom = async function (callBackFn) {
+    let response = null
+
+    // Intento conectar con el microservicio 
+    try {
+        const url = Frontend.API_GATEWAY + "/plantilla/get_pilotos_completos"
+        response = await fetch(url)
+
+    } catch (error) {
+        alert("Error: No se han podido acceder al API Gateway")
+        console.error(error)
+        //throw error
+    }
+
+    // Muestro todos los pilotos que se han descargado
+    let vectorPilotos = null
+    if (response) {
+        vectorPilotos = await response.json()
+        callBackFn(vectorPilotos.data)
+    }
+}
+
+/**
+ * Actualiza el cuerpo de la plantilla deseada con los datos del piloto que se le pasa
+ * @param {String} plantilla Cadena conteniendo HTML en la que se desea cambiar los campos de la plantilla por datos
+ * @param {Plantilla} piloto Objeto con los datos del piloto que queremos escribir en el TR
+ * @returns La plantilla del cuerpo de la tabla con los datos actualizados 
+ */ 
+Plantilla.sustituyeTagscompleto = function (plantilla, piloto) {
+    return plantilla
+        .replace(new RegExp(Plantilla.plantillaTags.nombre, 'g'), piloto.data.nombre)
+        .replace(new RegExp(Plantilla.plantillaTags.apellido, 'g'), piloto.data.apellido)
+        .replace(new RegExp(Plantilla.plantillaTags.edad, 'g'), piloto.data.edad)
+        .replace(new RegExp(Plantilla.plantillaTags.motos, 'g'), piloto.data.motos.nombre+"/"
+                                        +piloto.data.motos.plazas+"/"+piloto.data.motos.peso)
+        .replace(new RegExp(Plantilla.plantillaTags["playasvisitadas"], 'g'), piloto.data.playasvisitadas)
+}
+
+/// Plantilla para poner los datos de varios pilotos dentro de una tabla
+Plantilla.plantillaTablaPilotoscom = {}
+
+// Cabecera de la tabla de pilotos
+Plantilla.plantillaTablaPilotoscom.cabecera = `<table width="100%" class="listado-personas">
+                    <thead>
+                        <th width="20%">Nombre</th>
+                        <th width="20%">Apellidos</th>
+                        <th width="20%">Edad</th>
+                        <th width="20%">Motos</th>
+                        <th width="20%">Playas visitadas</th>
+                    </thead>
+                    <tbody>
+    `;
+
+// Elemento TR que muestra los datos de los pilotos
+Plantilla.plantillaTablaPilotoscom.cuerpo = `
+    <tr title="${Plantilla.plantillaTags.nombre}">
+        <td>${Plantilla.plantillaTags.nombre}</td>
+        <td>${Plantilla.plantillaTags.apellido}</td>
+        <td>${Plantilla.plantillaTags.edad}</td>
+        <td>${Plantilla.plantillaTags.motos}</td>
+        <td>${Plantilla.plantillaTags["playasvisitadas"]}</td>
+        <td>
+                    <div></div>
+        </td>
+    </tr>
+    `;
+
+// Pie de la tabla
+Plantilla.plantillaTablaPilotoscom.pie = `        </tbody>
+             </table>
+             `;
+
+             /**
+ * Actualiza el formulario con los datos del piloto que se le pasa
+ * @param {Plantilla} Plantilla Objeto con los datos del piloto que queremos escribir en el TR
+ * @returns La plantilla del cuerpo de la tabla con los datos actualizados 
+ */
+
+Plantilla.plantillaTablaPilotoscom.actualizapilotocom = function (piloto) {
+    return Plantilla.sustituyeTagscompleto(this.cuerpo, piloto)
+}
+
+/**
+ * Función para mostrar en pantalla todos los datos de pilotos que se han recuperado de la BBDD.
+ * @param {Vector_de_pilotos} vector Vector con los datos de los pilotos a mostrar
+ */
+
+Plantilla.imprimenombrescompleto = function (vector) {
+    let msj = Plantilla.plantillaTablaPilotoscom.cabecera
+    if (vector && Array.isArray(vector)) {
+        vector.forEach(e => msj += Plantilla.plantillaTablaPilotoscom.actualizapilotocom(e));
+    }
+    msj += Plantilla.plantillaTablaPilotoscom.pie
+
+    Frontend.Article.actualizar("Datos de los pilotos", msj)
+}
+
+/**
+ * Función principal para recuperar los pilotos desde el MS y, posteriormente, imprimirlos.
+ */
+Plantilla.procesarlistadocompleto = function () {
+    Plantilla.recuperacom(Plantilla.imprimenombrescompleto);
 }
