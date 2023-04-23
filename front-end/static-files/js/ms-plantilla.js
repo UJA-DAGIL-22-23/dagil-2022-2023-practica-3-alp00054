@@ -358,13 +358,12 @@ Plantilla.ordenarlistado = function () {
  * Función que recuperar pilotos por nombre.
  * @param {función} callBackFn Función a la que se llamará una vez recibidos los datos.
  */
-
 Plantilla.recuperanombre = async function (callBackFn,nombre) {
     let response = null
 
     // Intento conectar con el microservicio 
     try {
-        const url = Frontend.API_GATEWAY + "/plantilla/get_pilotos"
+        const url = Frontend.API_GATEWAY + "/plantilla/get_pilotos_completos"
         response = await fetch(url)
 
     } catch (error) {
@@ -386,5 +385,5 @@ Plantilla.recuperanombre = async function (callBackFn,nombre) {
  * Función principal para encontrar piloto por nombre.
  */
 Plantilla.busquedaporNombre = function (nombre) {
-    Plantilla.recuperanombre(Plantilla.imprimenombres,nombre);
+    Plantilla.recuperanombre(Plantilla.imprimenombrescompleto,nombre);
 }
