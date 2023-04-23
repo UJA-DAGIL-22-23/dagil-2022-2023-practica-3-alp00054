@@ -460,3 +460,7 @@ LISTADO DE PILOTOS:
 LISTADO DE PILOTOS COMPLETO:
 <img src='/ListadodePilotosCom.PNG' width='800px'>
 <img src='/ListadodePilotosComM.PNG' width='800px'>
+
+LISTADO DE PILOTOS ORDENADOS:
+<img src='/ListadodePilotosOrd.PNG' width='800px'>
+<img src='/ListadodePilotosOrdM.PNG' width='800px'>
