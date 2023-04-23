@@ -79,7 +79,9 @@ describe('Servidor PLANTILLA:', () => {
         .expect('Content-Type', /json/)
         .expect(function (res) {
           //console.log( res.body ); // Para comprobar qué contiene exactamente res.body
-          assert(res.body.data.hasOwnProperty('nombre'));
+          assert(res.body.data[0].hasOwnProperty('nombre'));
+          assert(res.body.data[0].data.name === "Ana");
+          assert(res.body.data[0].data.name != "Pato");
         })
         .end((error) => { error ? done.fail(error) : done(); }
         );

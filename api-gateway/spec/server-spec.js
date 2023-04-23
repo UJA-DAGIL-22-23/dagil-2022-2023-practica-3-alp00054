@@ -39,6 +39,20 @@ describe('API Gateway: rutas estáticas', () => {
         })
         .end((error) => { error ? done.fail(error) : done() })
     });
+    it('Devuelve un listado con todos los pilotos', (done) => {
+      supertest(app)
+        .get('/plantilla/get_pilotos')
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .expect(function (res) {
+          //console.log( res.body ); // Para comprobar qué contiene exactamente res.body
+          assert(res.body.data[0].hasOwnProperty('nombre'));
+          assert(res.body.data[0].data.name === "Ana");
+          assert(res.body.data[0].data.name != "Pato");
+        })
+        .end((error) => { error ? done.fail(error) : done(); }
+        );
+    });
   })
 });
 
