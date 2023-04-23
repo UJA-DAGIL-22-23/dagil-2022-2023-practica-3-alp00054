@@ -452,3 +452,7 @@ CAPTURAS FAUNA:
 ACERCADE:
 <img src='/acercade.PNG' width='800px'>
 <img src='/CapturaTrelloinicio.PNG' width='800px'>
+
+LISTADO DE PILOTOS:
+<img src='/ListadodePilotos.PNG' width='800px'>
+<img src='/ListadodePilotosMuestra.PNG' width='800px'>
