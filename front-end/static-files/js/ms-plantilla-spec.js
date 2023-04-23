@@ -12,6 +12,10 @@ const elementoTitulo = document.getElementById(Frontend.ID_SECCION_PRINCIPAL_TIT
 const elementoContenido = document.getElementById(Frontend.ID_SECCION_PRINCIPAL_CONTENIDO)
 const TITULO_HOME = "Plantilla Home"
 const TITULO_ACERCA_DE = "Plantilla Acerca de"
+const TITULO_LISTA_NOMBRE = "Nombres de los pilotos"
+const TITULO_LISTA_NOMBRE_C = "Datos de los pilotos"
+const TITULO_LISTA_ORDEN = "Nombres en orden"
+const EMPTY = ''
 
 const datosDescargadosPrueba = {
     mensaje: "Mensaje de prueba descargado",
@@ -124,52 +128,52 @@ describe("Plantilla.mostrarAcercaDe: ", function () {
 })
 
 describe("Plantilla.imprimenombres: ", function() {
-    it("Mostrar datos nulos cuando le pasamos vector nulo", 
-        function () {
-            // Objeto vacio
+    it("Mostrar datos nulos cuando le pasamos vector nulo",
+        function() {
             Plantilla.imprimenombres([])
-            expect(elementoTitulo.innerHTML).toBe("Nombres de los pilotos")
+            expect(elementoTitulo.innerHTML).toBe(TITULO_LISTA_NOMBRE)
             expect(elementoContenido.querySelector('tbody').innerHTML).toBe('')
-    })
+        })
 
     it("Mostrar datos nulos cuando le pasamos un valor que no es un objeto",
         function() {
             Plantilla.imprimenombres(10)
-            expect(elementoTitulo.innerHTML).toBe("Nombres de los pilotos")
+            expect(elementoTitulo.innerHTML).toBe(TITULO_LISTA_NOMBRE)
             expect(elementoContenido.querySelector('tbody').innerHTML).toBe('')
-    })
+        })
 })
 
+
+
 describe("Plantilla.imprimenombrescompleto: ", function() {
-    it("Mostrar datos nulos cuando le pasamos vector nulo", 
+    it("Mostrar datos nulos cuando le pasamos vector nulo",
         function() {
             Plantilla.imprimenombrescompleto([])
-            expect(elementoTitulo.innerHTML).toBe("Datos de los pilotos")
+            expect(elementoTitulo.innerHTML).toBe(TITULO_LISTA_NOMBRE_C)
             expect(elementoContenido.querySelector('tbody').innerHTML).toBe('')
-    })
-
+        })
     it("Mostrar datos nulos cuando le pasamos un valor que no es un objeto",
         function() {
             Plantilla.imprimenombrescompleto(10)
-            expect(elementoTitulo.innerHTML).toBe("Datos de los pilotos")
+            expect(elementoTitulo.innerHTML).toBe(TITULO_LISTA_NOMBRE_C)
             expect(elementoContenido.querySelector('tbody').innerHTML).toBe('')
-    })
+        })
 })
 
-describe("Plantilla.imprimenombresorden: ", function() {
-    it("Mostrar datos nulos cuando le pasamos vector nulo", 
-        function() {
-            Plantilla.imprimenombresorden([])
-            expect(elementoTitulo.innerHTML).toBe("Nombres de los pilotos en orden")
-            expect(elementoContenido.querySelector('tbody').innerHTML).toBe('')
-    })
 
+describe("Plantilla.imprimeorden: ", function() {
+    it("Mostrar datos nulos cuando le pasamos vector nulo",
+        function() {
+            Plantilla.imprimeorden([])
+            expect(elementoTitulo.innerHTML).toBe(TITULO_LISTA_ORDEN)
+            expect(elementoContenido.querySelector('tbody').innerHTML).toBe('')
+        })
     it("Mostrar datos nulos cuando le pasamos un valor que no es un objeto",
         function() {
-            Plantilla.imprimenombresorden(10)
-            expect(elementoTitulo.innerHTML).toBe("Nombres de los pilotos en orden")
+            Plantilla.imprimeorden(10)
+            expect(elementoTitulo.innerHTML).toBe(TITULO_LISTA_ORDEN)
             expect(elementoContenido.querySelector('tbody').innerHTML).toBe('')
-    })
+        })
 })
 
 

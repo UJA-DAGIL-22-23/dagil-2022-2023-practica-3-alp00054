@@ -163,8 +163,7 @@ Plantilla.plantillaTablaPilotos.cabecera = `<table width="100%" class="listado-p
                         <th width="20%">Nombre</th>
                         <th width="20%">Apellidos</th>
                     </thead>
-                    <tbody>
-    `;
+                    <tbody>`;
 
 // Elemento TR que muestra los nombres y apellidos de los pilotos
 Plantilla.plantillaTablaPilotos.cuerpo = `
@@ -178,9 +177,7 @@ Plantilla.plantillaTablaPilotos.cuerpo = `
     `;
 
 // Pie de la tabla
-Plantilla.plantillaTablaPilotos.pie = `        </tbody>
-             </table>
-             `;
+Plantilla.plantillaTablaPilotos.pie = `</tbody></table>`;
 
 /**
  * Función para mostrar en pantalla todos los nombres de pilotos que se han recuperado de la BBDD.
@@ -252,7 +249,7 @@ Plantilla.sustituyeTagscompleto = function (plantilla, piloto) {
         .replace(new RegExp(Plantilla.plantillaTags.apellido, 'g'), piloto.data.apellido)
         .replace(new RegExp(Plantilla.plantillaTags.edad, 'g'), piloto.data.edad)
         .replace(new RegExp(Plantilla.plantillaTags.motos, 'g'), piloto.data.motos.nombre+"/"
-                                        +piloto.data.motos.plazas+"/"+piloto.data.motos.peso)
+        +piloto.data.motos.plazas+"/"+piloto.data.motos.peso)
         .replace(new RegExp(Plantilla.plantillaTags["playasvisitadas"], 'g'), piloto.data.playasvisitadas)
 }
 
@@ -268,8 +265,7 @@ Plantilla.plantillaTablaPilotoscom.cabecera = `<table width="100%" class="listad
                         <th width="20%">Motos</th>
                         <th width="20%">Playas visitadas</th>
                     </thead>
-                    <tbody>
-    `;
+                    <tbody>`;
 
 // Elemento TR que muestra los datos de los pilotos
 Plantilla.plantillaTablaPilotoscom.cuerpo = `
@@ -279,16 +275,14 @@ Plantilla.plantillaTablaPilotoscom.cuerpo = `
         <td>${Plantilla.plantillaTags.edad}</td>
         <td>${Plantilla.plantillaTags.motos}</td>
         <td>${Plantilla.plantillaTags["playasvisitadas"]}</td>
-        <td>
-                    <div></div>
+        <td><div></div>
         </td>
     </tr>
     `;
 
 // Pie de la tabla
-Plantilla.plantillaTablaPilotoscom.pie = `        </tbody>
-             </table>
-             `;
+Plantilla.plantillaTablaPilotoscom.pie = `</tbody>
+</table>`;
 
              /**
  * Actualiza el formulario con los datos del piloto que se le pasa
@@ -320,4 +314,107 @@ Plantilla.imprimenombrescompleto = function (vector) {
  */
 Plantilla.procesarlistadocompleto = function () {
     Plantilla.recuperacom(Plantilla.imprimenombrescompleto);
+}
+
+/// Plantilla para poner los datos de varios pilotos dentro de una tabla
+Plantilla.plantillaTablaPilotosOrden = {}
+
+// Cabecera de la tabla de pilotos
+Plantilla.plantillaTablaPilotosOrden.cabecera = `<table width="100%" class="listado-personas">
+                    <thead>
+                        <th width="20%">Nombre</th>
+                        <th width="20%">Apellidos</th>
+                    </thead>
+                    <tbody>`;
+
+// Elemento TR que muestra los nombres y apellidos de los pilotos
+Plantilla.plantillaTablaPilotosOrden.cuerpo = `
+    <tr title="${Plantilla.plantillaTags.nombre}">
+        <td>${Plantilla.plantillaTags.nombre}</td>
+        <td>${Plantilla.plantillaTags.apellido}</td>
+        <td>
+                    <div></div>
+        </td>
+    </tr>
+    `;
+
+// Pie de la tabla
+Plantilla.plantillaTablaPilotosOrden.pie = `</tbody></table>`;
+
+
+/**
+ * Función que ordena un vector según el nombre
+ * */
+Plantilla.ordena = function(vector){
+    vector.sort(function (min, max) {
+        let nameMin = min.data.name.toUpperCase(); 
+        let nameMax = max.data.name.toUpperCase(); 
+        if (nameMin < nameMax) {
+            return -1;
+        }
+        if (nameMin > nameMax) {
+            return 1;
+        }
+        return 0;
+    });
+}
+
+/**
+ * Función para mostrar en pantalla todos los nombres de pilotos ordenados.
+ * @param {Vector_de_pilotos} vector Vector con los datos de los pilotos a mostrar
+ */
+
+Plantilla.imprimeorden = function (vector) {
+    let msj = Plantilla.plantillaTablaPilotosOrden.cabecera
+    if (vector && Array.isArray(vector)) {
+        Plantilla.ordena(vector);
+        vector.forEach(e => msj += Plantilla.plantillaTablaPilotosOrden.actualizapilotoOrden(e));
+    }
+    msj += Plantilla.plantillaTablaPilotosOrden.pie
+
+    Frontend.Article.actualizar("Nombres en orden", msj)
+}
+
+/**
+ * Actualiza el formulario con los datos del piloto que se le pasa
+ * @param {Plantilla} Plantilla Objeto con los datos del piloto que queremos escribir en el TR
+ * @returns La plantilla del cuerpo de la tabla con los datos actualizados 
+ */
+Plantilla.plantillaTablaPilotosOrden.actualizapilotoOrden = function (piloto) {
+    return Plantilla.sustituyeTags(this.cuerpo, piloto)
+}
+
+/**
+ * Función que recuperar todos los pilotos llamando al MS Plantilla
+ * @param {función} callBackFn Función a la que se llamará una vez recibidos los datos.
+ */
+
+Plantilla.recuperaorden = async function (callBackFn) {
+    let response = null
+
+    // Intento conectar con el microservicio 
+    try {
+        const url = Frontend.API_GATEWAY + "/plantilla/get_pilotos_ordenados"
+        response = await fetch(url)
+
+    } catch (error) {
+        alert("Error: No se han podido acceder al API Gateway")
+        console.error(error)
+        //throw error
+    }
+
+    // Muestro todos los pilotos que se han descargado
+    let vectorPilotos = null
+    if (response) {
+        vectorPilotos = await response.json()
+        callBackFn(vectorPilotos.data)
+    }
+}
+
+/**
+ * Función principal para recuperar los pilotos desde el MS y, posteriormente, ordenarlos.
+ */
+
+Plantilla.ordenarlistado = function () {
+    Plantilla.recuperaorden(Plantilla.imprimeorden);
 }
