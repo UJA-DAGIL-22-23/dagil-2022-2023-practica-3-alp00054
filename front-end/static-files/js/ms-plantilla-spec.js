@@ -123,6 +123,55 @@ describe("Plantilla.mostrarAcercaDe: ", function () {
         })
 })
 
+describe("Plantilla.imprimenombres: ", function() {
+    it("Mostrar datos nulos cuando le pasamos vector nulo", 
+        function () {
+            // Objeto vacio
+            Plantilla.imprimenombres([])
+            expect(elementoTitulo.innerHTML).toBe("Nombres de los pilotos")
+            expect(elementoContenido.querySelector('tbody').innerHTML).toBe('')
+    })
+
+    it("Mostrar datos nulos cuando le pasamos un valor que no es un objeto",
+        function() {
+            Plantilla.imprimenombres(10)
+            expect(elementoTitulo.innerHTML).toBe("Nombres de los pilotos")
+            expect(elementoContenido.querySelector('tbody').innerHTML).toBe('')
+    })
+})
+
+describe("Plantilla.imprimenombrescompleto: ", function() {
+    it("Mostrar datos nulos cuando le pasamos vector nulo", 
+        function() {
+            Plantilla.imprimenombrescompleto([])
+            expect(elementoTitulo.innerHTML).toBe("Datos de los pilotos")
+            expect(elementoContenido.querySelector('tbody').innerHTML).toBe('')
+    })
+
+    it("Mostrar datos nulos cuando le pasamos un valor que no es un objeto",
+        function() {
+            Plantilla.imprimenombrescompleto(10)
+            expect(elementoTitulo.innerHTML).toBe("Datos de los pilotos")
+            expect(elementoContenido.querySelector('tbody').innerHTML).toBe('')
+    })
+})
+
+describe("Plantilla.imprimenombresorden: ", function() {
+    it("Mostrar datos nulos cuando le pasamos vector nulo", 
+        function() {
+            Plantilla.imprimenombresorden([])
+            expect(elementoTitulo.innerHTML).toBe("Nombres de los pilotos en orden")
+            expect(elementoContenido.querySelector('tbody').innerHTML).toBe('')
+    })
+
+    it("Mostrar datos nulos cuando le pasamos un valor que no es un objeto",
+        function() {
+            Plantilla.imprimenombresorden(10)
+            expect(elementoTitulo.innerHTML).toBe("Nombres de los pilotos en orden")
+            expect(elementoContenido.querySelector('tbody').innerHTML).toBe('')
+    })
+})
+
 
 /*
 IMPORTANTE

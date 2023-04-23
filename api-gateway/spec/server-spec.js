@@ -57,7 +57,7 @@ describe('API Gateway: rutas estáticas', () => {
     });
     it('Devuelve un listado con todos los pilotos', (done) => {
       supertest(app)
-        .get('/get_pilotos_completos')
+        .get('/plantilla/get_pilotos_completos')
         .expect(200)
         .expect('Content-Type', /json/)
         .expect(function (res) {
@@ -71,6 +71,14 @@ describe('API Gateway: rutas estáticas', () => {
           assert(res.body.data[0].data.name != "Pato");
           assert(res.body.data.length === 10);
         })
+        .end((error) => { error ? done.fail(error) : done(); }
+        );
+    });
+    it('Devuelve un listado ordenado', (done) => {
+      supertest(app)
+        .get('/plantilla/get_pilotos_ordenados')
+        .expect(200)
+        .expect('Content-Type', /json/)
         .end((error) => { error ? done.fail(error) : done(); }
         );
     });

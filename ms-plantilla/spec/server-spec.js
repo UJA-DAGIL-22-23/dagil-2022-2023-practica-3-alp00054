@@ -117,6 +117,20 @@ describe('Servidor PLANTILLA:', () => {
 
   })
 
+  /**
+   * Listar pilotos ordenado
+   */
+  describe('Lista de pilotos ordenada:', () => {
+    it('Devuelve un listado ordenado', (done) => {
+      supertest(app)
+        .get('/get_pilotos_ordenados')
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .end((error) => { error ? done.fail(error) : done(); }
+        );
+    });
+  })
+
 });
 
 
