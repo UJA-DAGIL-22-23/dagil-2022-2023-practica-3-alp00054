@@ -79,9 +79,14 @@ describe('Servidor PLANTILLA:', () => {
         .expect('Content-Type', /json/)
         .expect(function (res) {
           //console.log( res.body ); // Para comprobar qué contiene exactamente res.body
-          assert(res.body.data[0].hasOwnProperty('nombre'));
+          assert(res.body.data[0].data.hasOwnProperty('nombre'));
+          assert(res.body.data[0].data.hasOwnProperty('apellido'));
+          assert(res.body.data[0].data.hasOwnProperty('edad'));
+          assert(res.body.data[0].data.hasOwnProperty('motos'));
+          assert(res.body.data[0].data.hasOwnProperty('playasvisitadas'));
           assert(res.body.data[0].data.name === "Ana");
           assert(res.body.data[0].data.name != "Pato");
+          assert(res.body.data.length === 10);
         })
         .end((error) => { error ? done.fail(error) : done(); }
         );

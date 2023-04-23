@@ -57,5 +57,16 @@ router.get("/get_pilotos", async (req, res) => {
     }
 });
 
+/**
+ * Ruta de get_pilotos completa
+ */
+router.get("/get_pilotos_completos", async (req, res) => {
+    try {
+        await callbacks.get_pilotos_completos(req, res)
+    } catch (error) {
+        console.log(error);
+    }
+});
+
 // Exporto el módulo para poder usarlo en server
 module.exports = router;
