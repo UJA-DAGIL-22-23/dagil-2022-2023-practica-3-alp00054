@@ -353,3 +353,38 @@ Plantilla.imprimeorden = function(vector) {
 Plantilla.ordenarlistado = function () {
     Plantilla.recupera(Plantilla.imprimeorden);
 }
+
+/**
+ * Función que recuperar pilotos por nombre.
+ * @param {función} callBackFn Función a la que se llamará una vez recibidos los datos.
+ */
+
+Plantilla.recuperanombre = async function (callBackFn,nombre) {
+    let response = null
+
+    // Intento conectar con el microservicio 
+    try {
+        const url = Frontend.API_GATEWAY + "/plantilla/get_pilotos"
+        response = await fetch(url)
+
+    } catch (error) {
+        alert("Error: No se han podido acceder al API Gateway")
+        console.error(error)
+        //throw error
+    }
+
+    // Muestro todos los pilotos que se han descargado
+    let vectorPilotos = null
+    if (response) {
+        vectorPilotos = await response.json()
+        const filtro = vectorPilotos.data.filter(piloto => piloto.data.nombre === nombre)
+        callBackFn(filtro)
+    }
+}
+
+/**
+ * Función principal para encontrar piloto por nombre.
+ */
+Plantilla.busquedaporNombre = function (nombre) {
+    Plantilla.recuperanombre(Plantilla.imprimenombres,nombre);
+}
