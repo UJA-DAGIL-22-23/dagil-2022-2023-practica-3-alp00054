@@ -468,3 +468,8 @@ LISTADO DE PILOTOS ORDENADOS:
 BUSQUEDA DE PILOTO:
 <img src='/ListadodePilotosNombresB.PNG' width='800px'>
 <img src='/ListadodePilotosNombresBM.PNG' width='800px'>
+
+BUSQUEDA DE CRITERIOS:
+<img src='/ListadoCrit.PNG' width='800px'>
+<img src='/ListadoCritM1.PNG' width='800px'>
+<img src='/ListadoCritM2.PNG' width='800px'>
