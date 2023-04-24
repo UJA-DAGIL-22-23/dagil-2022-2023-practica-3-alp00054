@@ -387,3 +387,43 @@ Plantilla.recuperanombre = async function (callBackFn,nombre) {
 Plantilla.busquedaporNombre = function (nombre) {
     Plantilla.recuperanombre(Plantilla.imprimenombrescompleto,nombre);
 }
+
+/**
+ * Función que recupera todos los pilotos llamando al MS Plantilla
+ * Posteriormente, llama a la función callBackFn para trabajar con los datos recuperados.
+ * @param {string} criterio1 El primer criterio que se busca
+ * @param {string} criterio2 El segundo criterio que se busca
+ * @param {string} criterio3 El tercer criterio que se busca
+ * @param {funcion} callBackFn Función a la que se llamará una vez recibidos los datos
+ */
+Plantilla.Buscaporcrit = async function (criterio1, criterio2, criterio3, tipo, callBackFn) {
+    try {
+        const url = Frontend.API_GATEWAY + "/plantilla/get_pilotos_completos"
+        const response = await fetch(url);
+        let vectorPilotos = null
+        if (response) {
+            vectorPilotos = await response.json()
+            if(tipo){
+                const filtro = vectorPilotos.data.filter(piloto => piloto.data.nombre === criterio1 || piloto.data.apellido === criterio2 || piloto.data.edad === parseInt(criterio3))
+                callBackFn(filtro)    
+            }else{
+            const filtro = vectorPilotos.data.filter(piloto => piloto.data.nombre === criterio1 && piloto.data.apellido === criterio2 && piloto.data.edad === parseInt(criterio3))
+            callBackFn(filtro)}
+        }
+    } catch (error) {
+        alert("Error: No se han podido acceder al API Geteway")
+        console.error(error)
+    }
+}
+
+
+/**
+ * Función principal para encontrar piloto por criterios
+ * @param {string} crit1 El primer criterio que se busca
+ * @param {string} crit2 El segundo criterio que se busca
+ * @param {string} crit3 El tercer criterio que se busca
+ * @param {bool} tipo Tipo de busqueda a realizar
+ */
+Plantilla.buscaCriterio = function (crit1, crit2, crit3, tipo) {
+    this.Buscaporcrit(crit1, crit2, crit3, tipo, this.imprimenombrescompleto); 
+}
